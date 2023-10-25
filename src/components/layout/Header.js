@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 import Dropdown from "react-bootstrap/Dropdown";
-import { Link, NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Header = () => {
   return (
