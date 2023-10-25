@@ -1,0 +1,148 @@
+.header {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #131921;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: 700;
+}
+
+.header-logo img{
+    height: 65px;
+    object-fit: contain;
+    padding: 1px 8px 0 6px;
+    margin: 1px;
+}
+
+.header-search {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    width: 100%;
+    height: 38px;
+    border-radius: 25px;
+}
+
+.search-input {
+    width: 83%;
+    height: 37px;
+    padding: 7px 10px 10px 0;
+    font-size: 15px;
+    border: none;
+    box-shadow: none;
+    text-indent: 8px;
+    direction: ltr;
+    z-index: 100;
+    
+}
+
+.header-search svg{
+    padding: 11.5px;
+    height: 100%;
+    background-color: #cd9042;
+    border-radius: 0 6px 6px 0;
+
+}
+
+.departments {
+    width: 49px;
+    background-color: #e6e6e6;
+    border: none;
+    border-radius: 8px 0 0 8px;
+   
+}
+
+.menu-items {
+    height: 300px;
+    overflow-y: auto;
+    border-radius: 6px;
+
+}
+
+.languages {
+    display: flex;
+    height: 25%;
+    width: 5px;
+    color: #ffffff;
+    margin-right: 50px;
+}
+
+.language {
+    margin-left: 5px;
+}
+
+.header-nav {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 0 15px  0 15px ;
+}
+
+ .icon {
+    fill: #ffffff;
+}
+
+.header-options {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: #ffffff;
+}
+
+.header-optionOne {
+    font-size: 10px;
+}
+
+.header-optionTwo {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.prod-count {
+    color: #cd9042;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.deliver {
+    font-size: 10px;
+    font-weight: 400;
+    color: #e6e6e6;
+}
+
+.main-nav {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content:baseline;
+    height: 39px;
+    width: 100%;
+    padding: 11px;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1rem;
+    background-color: #232f3e;
+    color: white;
+}
+
+.main-nav span {
+    margin: 0 10px 0 10px;
+}
+
+.main-nav .icon {
+    margin-right: 5px;
+    margin-bottom: 3px;
+    font-weight: 800;
+}
+
+.custom-links {
+    text-decoration: none;
+    color: #fff;
+}
+
+
