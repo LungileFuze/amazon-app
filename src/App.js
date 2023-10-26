@@ -16,6 +16,7 @@ import Registry from "./components/main-nav/Registry";
 import GiftCards from "./components/main-nav/GiftCards";
 import Sell from "./components/main-nav/Sell";
 import Sidebar from "./components/main-nav/Sidebar";
+import NotFound from "./components/NotFound";
 
 
 function App() {
@@ -65,6 +66,9 @@ function App() {
           </Route>
           <Route path="/sidebar">
             <Sidebar/>
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </main>
