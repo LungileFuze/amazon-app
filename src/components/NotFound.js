@@ -15,6 +15,7 @@ const NotFound = () => {
         </div>
         <div>
           <img
+            className="bottom-img"
             src="https://images-na.ssl-images-amazon.com/images/G/01/error/121._TTD_.jpg"
             alt=""
           />
