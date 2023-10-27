@@ -21,7 +21,7 @@ import NotFound from "./components/NotFound";
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <main>
         <Switch>
@@ -72,7 +72,7 @@ function App() {
           </Route>
         </Switch>
       </main>
-    </div>
+    </>
   );
 }
 
