@@ -1,20 +1,42 @@
-import  React, {useState, useRef} from "react"
+import  React, {useState, useRef, useEffect} from "react"
 import { Link } from "react-router-dom"
 import "./Login.css" 
 
 
 const Login = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const emailRef = useRef()
   const passwordRef = useRef()
+
+  //Prevent signing the user out without removing it from the  storage when refreshing the page
+  useEffect(() => {
+    const user = localStorage.getItem("isLoggedIn")
+
+    if(user) {
+      setIsLoggedIn(true)
+    }
+  }, [])
 
   const signIn = e => {
     e.preventDefault()
     const enteredEmail = emailRef.current.value
     const enteredPassword = passwordRef.current.value
     console.log("Email: ", enteredEmail + " Password: ", enteredPassword)
+    localStorage.setItem("isLoggedIn", 1)
+    setIsLoggedIn(true)
   }
+
+  const signOut = () => {
+    setIsLoggedIn(false)
+    localStorage.removeItem("isLoggedIn")
+  }
+
   return (
     <div className="login">
+      {isLoggedIn && (
+        <p>You are logged in <button onClick={signOut}>SignOut</button></p>
+      )}
+      
         <Link to="/" className="custom-links">
             <img
               src="https://ledgergurus.com/wp-content/uploads/2019/02/amazon-logo-transparent-800x258.png"
