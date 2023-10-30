@@ -1,42 +1,32 @@
-import  React, {useState, useRef, useEffect} from "react"
+import  React, {useState, useEffect} from "react"
 import { Link } from "react-router-dom"
 import "./Login.css" 
 
 
 const Login = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const emailRef = useRef()
-  const passwordRef = useRef()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [formIsValid, setFormIsValid] = useState(false)
 
-  //Prevent signing the user out without removing it from the  storage when refreshing the page
   useEffect(() => {
-    const user = localStorage.getItem("isLoggedIn")
+    setFormIsValid(email.includes("@") && password.trim().length > 6)
+  },[email,password])
 
-    if(user) {
-      setIsLoggedIn(true)
-    }
-  }, [])
+  const emailChangedHandler = (e) => {
+    setEmail(e.target.value)
+    
+  }
 
-  const signIn = e => {
+  const passwordChangedHandler = (e) => {
+    setPassword(e.target.value)
+  }
+
+  const signIn = (e) => {
     e.preventDefault()
-    const enteredEmail = emailRef.current.value
-    const enteredPassword = passwordRef.current.value
-    console.log("Email: ", enteredEmail + " Password: ", enteredPassword)
-    localStorage.setItem("isLoggedIn", 1)
-    setIsLoggedIn(true)
+    console.log(formIsValid)
   }
-
-  const signOut = () => {
-    setIsLoggedIn(false)
-    localStorage.removeItem("isLoggedIn")
-  }
-
   return (
     <div className="login">
-      {isLoggedIn && (
-        <p>You are logged in <button onClick={signOut}>SignOut</button></p>
-      )}
-      
         <Link to="/" className="custom-links">
             <img
               src="https://ledgergurus.com/wp-content/uploads/2019/02/amazon-logo-transparent-800x258.png"
@@ -48,9 +38,9 @@ const Login = () => {
           <h1>Sign in</h1>
           <form>
             <label>E-mail or mobile phone number</label>
-            <input type="text" ref={emailRef} />
+            <input type="text" value={email} onChange={emailChangedHandler} />
             <label>Password</label>
-            <input type="password" ref={passwordRef} />
+            <input type="password" value={password} onChange={passwordChangedHandler} />
             <button type="submit" className="signIn-button" onClick={signIn}>
               Sign in
             </button>
