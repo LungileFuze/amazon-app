@@ -1,9 +1,18 @@
-import  React, {useState} from "react"
+import  React, {useState, useRef} from "react"
 import { Link } from "react-router-dom"
 import "./Login.css" 
 
 
 const Login = () => {
+  const emailRef = useRef()
+  const passwordRef = useRef()
+
+  const signIn = e => {
+    e.preventDefault()
+    const enteredEmail = emailRef.current.value
+    const enteredPassword = passwordRef.current.value
+    console.log("Email: ", enteredEmail + " Password: ", enteredPassword)
+  }
   return (
     <div className="login">
         <Link to="/" className="custom-links">
@@ -17,10 +26,10 @@ const Login = () => {
           <h1>Sign in</h1>
           <form>
             <label>E-mail or mobile phone number</label>
-            <input type="text" />
+            <input type="text" ref={emailRef} />
             <label>Password</label>
-            <input type="password" />
-            <button type="submit" className="signIn-button">
+            <input type="password" ref={passwordRef} />
+            <button type="submit" className="signIn-button" onClick={signIn}>
               Sign in
             </button>
           </form>
