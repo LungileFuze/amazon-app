@@ -9,7 +9,16 @@ const Login = () => {
   const [formIsValid, setFormIsValid] = useState(false)
 
   useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("Checking for form validity")
     setFormIsValid(email.includes("@") && password.trim().length > 6)
+    }, 500);
+    
+    
+    return () => {
+      console.log("Clean-up function before the next side effect")
+      clearTimeout(identifier)
+    }    
   },[email,password])
 
   const emailChangedHandler = (e) => {
