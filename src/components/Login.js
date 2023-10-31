@@ -1,12 +1,29 @@
-import  React, {useState, useEffect} from "react"
+import  React, {useState, useReducer, useEffect} from "react"
 import { Link } from "react-router-dom"
 import "./Login.css" 
 
 
+const reducer = (state, action) => {
+  if(action.type === "EMAIL_INPUT") {
+    return {...state, emailValue: action.payload }
+  }
+ 
+
+  if(action.type === "PASSWORD_INPUT") {
+    return {...state, passwordValue: action.payload }
+  }
+  return {...state, emailValue: "", passwordValue: ""}
+}
+
 const Login = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
   const [formIsValid, setFormIsValid] = useState(false)
+
+  const [state, dispatch] = useReducer(reducer, {
+    emailValue: "",
+    passwordValue: ""
+  })
+
+    const {emailValue: email, passwordValue: password} = state
 
   useEffect(() => {
     const identifier = setTimeout(() => {
@@ -22,17 +39,20 @@ const Login = () => {
   },[email,password])
 
   const emailChangedHandler = (e) => {
-    setEmail(e.target.value)
+    dispatch({type: "EMAIL_INPUT", payload: e.target.value})
+    // setFormIsValid(e.target.includes("@") && password.trim().length > 6)
+    // setEmail(e.target.value)
     
   }
 
   const passwordChangedHandler = (e) => {
-    setPassword(e.target.value)
+    dispatch({type: "PASSWORD_INPUT", payload: e.target.value})
+    // setPassword(e.target.value)
   }
 
   const signIn = (e) => {
     e.preventDefault()
-    console.log(formIsValid)
+    console.log("Entered email: ", email + "  Entered password: ", password)
   }
   return (
     <div className="login">
