@@ -1,17 +1,58 @@
-import  React, {useState, useRef} from "react"
+import  React, {useState, useReducer, useEffect} from "react"
 import { Link } from "react-router-dom"
 import "./Login.css" 
 
 
-const Login = () => {
-  const emailRef = useRef()
-  const passwordRef = useRef()
+const reducer = (state, action) => {
+  if(action.type === "EMAIL_INPUT") {
+    return {...state, emailValue: action.payload }
+  }
+ 
 
-  const signIn = e => {
+  if(action.type === "PASSWORD_INPUT") {
+    return {...state, passwordValue: action.payload }
+  }
+  return {...state, emailValue: "", passwordValue: ""}
+}
+
+const Login = () => {
+  const [formIsValid, setFormIsValid] = useState(false)
+
+  const [state, dispatch] = useReducer(reducer, {
+    emailValue: "",
+    passwordValue: ""
+  })
+
+    const {emailValue: email, passwordValue: password} = state
+
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log("Checking for form validity")
+    setFormIsValid(email.includes("@") && password.trim().length > 6)
+    }, 500);
+    
+    
+    return () => {
+      console.log("Clean-up function before the next side effect")
+      clearTimeout(identifier)
+    }    
+  },[email,password])
+
+  const emailChangedHandler = (e) => {
+    dispatch({type: "EMAIL_INPUT", payload: e.target.value})
+    // setFormIsValid(e.target.includes("@") && password.trim().length > 6)
+    // setEmail(e.target.value)
+    
+  }
+
+  const passwordChangedHandler = (e) => {
+    dispatch({type: "PASSWORD_INPUT", payload: e.target.value})
+    // setPassword(e.target.value)
+  }
+
+  const signIn = (e) => {
     e.preventDefault()
-    const enteredEmail = emailRef.current.value
-    const enteredPassword = passwordRef.current.value
-    console.log("Email: ", enteredEmail + " Password: ", enteredPassword)
+    console.log("Entered email: ", email + "  Entered password: ", password)
   }
   return (
     <div className="login">
@@ -26,9 +67,9 @@ const Login = () => {
           <h1>Sign in</h1>
           <form>
             <label>E-mail or mobile phone number</label>
-            <input type="text" ref={emailRef} />
+            <input type="text" value={email} onChange={emailChangedHandler} />
             <label>Password</label>
-            <input type="password" ref={passwordRef} />
+            <input type="password" value={password} onChange={passwordChangedHandler} />
             <button type="submit" className="signIn-button" onClick={signIn}>
               Sign in
             </button>
