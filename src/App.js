@@ -19,16 +19,18 @@ import Sidebar from "./components/main-nav/Sidebar";
 import NotFound from "./components/NotFound";
 
 
+
 function App() {
+
   return (
     <>
-      <Header />
+       <Header />
       <main>
         <Switch>
-          <Route path="/" exact>
+          <Route path="/" exact >
             <Redirect to="/home" />
           </Route>
-          <Route path="/Home">
+          <Route path="/Home" >
             <Home />
           </Route>
           <Route path="/Products" exact>
@@ -38,7 +40,7 @@ function App() {
             <ProductDetails />
           </Route>
           <Route path="/login">
-            <Login/>
+            <Login />
           </Route>
           <Route path="/returns">
             <Returns/>
@@ -73,6 +75,8 @@ function App() {
         </Switch>
       </main>
     </>
+     
+   
   );
 }
 
