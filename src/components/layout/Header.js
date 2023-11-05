@@ -1,12 +1,21 @@
+import {useContext} from "react"
 import React from "react";
 import "./Header.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import AuthContext from "../../context/authContext";
+import ShoppingContext from "../../context/shopping/shoppingContext";
 
 const Header = () => {
-  return (
-    <div>
-      <header className="header">
+  const shoppingContext = useContext(ShoppingContext)
+  const {basket} = shoppingContext
+
+
+    const ctx = useContext(AuthContext)
+
+        return (
+          <>
+           <header className="header">
         <Link to="/" className="custom-links">
           <div className="header-logo">
             <img
@@ -108,12 +117,18 @@ const Header = () => {
         </div>
 
         <div className="header-nav">
-          <Link to="/login" className="custom-links">
+          {ctx.isLoggedIn ? (<Link to="/" className="custom-links" >
+            <div className="header-options" onClick={ctx.onLogout}>
+              <span className="header-optionOne">Hello, sign out</span>
+              <span className="header-optionTwo">Accounts & Lists</span>
+            </div>
+          </Link>): ( <Link to="/login" className="custom-links">
             <div className="header-options">
               <span className="header-optionOne">Hello, sign in</span>
               <span className="header-optionTwo">Accounts & Lists</span>
             </div>
-          </Link>
+          </Link>)}
+         
 
           <Link to="/returns" className="custom-links">
             <div className="header-options">
@@ -124,7 +139,7 @@ const Header = () => {
 
           <Link to="/cart" className="custom-links">
             <div className="hearder-options">
-              <span className="header-optionTwo prod-count">0</span>
+              <span className="header-optionTwo prod-count">{basket?.length}</span>
               <span className="header-optionTwo icon">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -176,8 +191,8 @@ const Header = () => {
           <span>Sell</span>
         </Link>
       </div>
-    </div>
-  );
+          </>
+        )
 };
 
 export default Header;
