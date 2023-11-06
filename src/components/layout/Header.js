@@ -3,15 +3,21 @@ import React from "react";
 import "./Header.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
-import AuthContext from "../../context/authContext";
 import ShoppingContext from "../../context/shopping/shoppingContext";
+import { auth } from "../../firebase";
 
 const Header = () => {
   const shoppingContext = useContext(ShoppingContext)
-  const {basket} = shoppingContext
+  const {basket, user} = shoppingContext
+  console.log(user)
+  
 
-
-    const ctx = useContext(AuthContext)
+  const handleAuthentication = () => {
+    if (user) {
+      console.log(user)
+      auth.signOut()
+    }
+  }
 
         return (
           <>
@@ -117,17 +123,15 @@ const Header = () => {
         </div>
 
         <div className="header-nav">
-          {ctx.isLoggedIn ? (<Link to="/" className="custom-links" >
-            <div className="header-options" onClick={ctx.onLogout}>
-              <span className="header-optionOne">Hello, sign out</span>
+          <Link to={!user && "/login"} className="custom-links">
+            <div className="header-options" onClick={handleAuthentication}>
+              <span className="header-optionOne">
+                Hello  
+                { user ? " " + user.email : " Sign in "} 
+                </span>
               <span className="header-optionTwo">Accounts & Lists</span>
             </div>
-          </Link>): ( <Link to="/login" className="custom-links">
-            <div className="header-options">
-              <span className="header-optionOne">Hello, sign in</span>
-              <span className="header-optionTwo">Accounts & Lists</span>
-            </div>
-          </Link>)}
+          </Link>
          
 
           <Link to="/returns" className="custom-links">
