@@ -1,10 +1,9 @@
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import Home from "./components/Home";
 import Products from "./components/Products";
 import Header from "./components/layout/Header";
 import ProductDetails from "./components/layout/ProductDetails";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "./components/Login";
 import Returns from "./components/Returns";
@@ -17,10 +16,28 @@ import GiftCards from "./components/main-nav/GiftCards";
 import Sell from "./components/main-nav/Sell";
 import Sidebar from "./components/main-nav/Sidebar";
 import NotFound from "./components/NotFound";
+import ShoppingContext from "./context/shopping/shoppingContext";
+import { useContext, useEffect } from "react";
+import { auth } from "./firebase";
+
 
 
 
 function App() {
+  const shoppingContext = useContext(ShoppingContext)
+  const {setUser } = shoppingContext
+
+  useEffect(() => {
+    auth.onAuthStateChanged((authUser) => {
+      console.log("User is -> ", authUser)
+
+      if (authUser) {
+        setUser(authUser)
+      } else {
+        setUser(null)
+      }
+    })
+  },[])
 
   return (
     <>
